@@ -6,21 +6,13 @@
 
 ## Todo
 
+- save - load
+- export as CSV
+- command handling
+
 ## Notes
 
-
-
-
-
-
-
-
-
-
-
-
-
-# description
+# Description
 
 Project 2: Personal Budget Tracker (Intermediate Level)
 This project will introduce file handling, data structures, and basic reporting.
@@ -47,11 +39,9 @@ Export Data (export):
 Save expense data to a CSV file.
 
 📂 Data Format (Stored in expenses.txt):
-arduino
-Copy
-Edit
 1, Food, 15.50, "Lunch at McDonald's", 2024-03-27
 2, Transport, 10.00, "Uber ride", 2024-03-27
+
 Each expense has:
 
 ID (Unique)
