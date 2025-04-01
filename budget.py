@@ -1,3 +1,4 @@
+import os
 import string
 import random
 import json
@@ -44,13 +45,19 @@ class Budget:
         ID = Budget.generate_ID()
         self.expenses[ID] = expense
         expense.set_ID(ID)
+        print('Added expense to budget:')
+        print(expense.to_str())
 
     def remove(self, ID: str):
         if ID not in self.expenses:
             print(f'Error: No expense with ID {ID} in budget.')
         self.expenses.pop(ID)
+        print(f'Remove expense with ID {ID} from budget!')
 
     def list_expenses(self):
+        if not self.expenses:
+            print('No expenses in budget to list.')
+            return
         print('Expenses:')
         print(f'{'ID':5}{'category':5}{'amount':5}{'description':20}{'date'}')
         for expense in self.expenses.values():
@@ -75,6 +82,27 @@ class Budget:
         }
         return data
 
+    def export_csv(self, filename, directory):
+        data = self.to_dict()
+        filepath = os.path.join(directory, filename)
+        if os.path.exists(filepath):
+            print(f'Error: a file with same name already exists at {filepath}.')
+            return
+        with open(filepath, 'w') as file:
+            writer = csv.writer(file)
+            writer.writerow(['ID', 'category', 'amount', 'description', 'date'])
+            for ID, expense in data:
+                writer.writerow([ID, expense['category'], expense['amount'], expense['description'], expense['date']])
+
+    def generate_ID():
+        ID = ''
+        while True:
+            ID = ''.join(random.choice(string.ascii_letters+ string.digits, k=4))
+            if ID not in Budget.generated_IDs:
+                break
+        Budget.generated_IDs.add(ID)
+        return ID
+
     def save(self, file_path):
         data = self.to_dict()
         with open(file_path, 'w') as file:
@@ -93,21 +121,3 @@ class Budget:
             )
             self.expenses[ID] = expense
             expense.set_ID(ID)
-
-    def export_civ(self, csvfile_path):
-        # adjust and implement logic for filepath
-        data = self.to_dict()
-        with open(csvfile_path, 'w') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(['ID', 'category', 'amount', 'description', 'date'])
-            for ID, expense in data:
-                writer.writerow([ID, expense['category'], expense['amount'], expense['description'], expense['date']])
-
-    def generate_ID():
-        ID = ''
-        while True:
-            ID = ''.join(random.choice(string.ascii_letters+ string.digits, k=4))
-            if ID not in Budget.generated_IDs:
-                break
-        Budget.generated_IDs.add(ID)
-        return ID

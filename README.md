@@ -1,68 +1,40 @@
 # PBT: Personal Budget Tracker
 
+A personal budget tracker CLI application
+For Linux only!
+
+# Description
+
+This is a small simple python project to study the basic of python including file handling, command handling, epxorting csv files, dsa, oop...
+
+# Instruction
+
+- Setup
+    - use "setup.py install" to install pbt
+
+- pbt
+    - add expenses (for format use help)
+        - An ID will be generated for each ID after generated
+    - remove expenses if needed using ID
+        - Look up ID either by using "list" or look at output when added
+    - list to see all expenses in budget
+    - get sum ammount of a category using "summary"
+    - export file as a csv if needed
+        - csv file will be export to requested directory or default directory in /home/user_folder/pbt/exports
+
 # Features
+
+- Add: add an expense to budget
+- Remove: remove an expense from budget using expense's ID
+- List: list all expenses in  budget
+- Summary: Sum amount of all expenses in one category
+- Export: export expenses as a csv file
+- Help: list help
 
 # Work
 
 ## Todo
 
-- command handling
-- setup.py
 - testing
 
 ## Notes
-
-# Description
-
-Project 2: Personal Budget Tracker (Intermediate Level)
-This project will introduce file handling, data structures, and basic reporting.
-
-🛠 Features:
-Add an Expense (add):
-
-Store amount, category, description, and date.
-
-List Expenses (list):
-
-Show all recorded expenses.
-
-View Summary (summary):
-
-Display total expenses by category.
-
-Delete an Expense (remove):
-
-Remove an expense by ID.
-
-Export Data (export):
-
-Save expense data to a CSV file.
-
-📂 Data Format (Stored in expenses.txt):
-1, Food, 15.50, "Lunch at McDonald's", 2024-03-27
-2, Transport, 10.00, "Uber ride", 2024-03-27
-
-Each expense has:
-
-ID (Unique)
-
-Category (e.g., Food, Transport)
-
-Amount
-
-Description
-
-Date (YYYY-MM-DD)
-
-🔹 Concepts You'll Learn
-✅ File Handling (open, readlines, writelines)
-✅ String Parsing & Formatting (split, strip)
-✅ Data Aggregation (Summing by Category)
-✅ CLI Arguments (sys.argv)
-✅ Exporting to CSV
-
-📝 First Task
-Start with the "Add Expense" function.
-Write a Python function that takes category, amount, description, and appends it to expenses.txt.
-
-Would you like to try implementing it yourself first, or should I provide a starting template? 😊
