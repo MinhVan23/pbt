@@ -6,9 +6,9 @@
 
 ## Todo
 
-- save - load
-- export as CSV
 - command handling
+- setup.py
+- testing
 
 ## Notes
 

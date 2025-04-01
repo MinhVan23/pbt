@@ -1,5 +1,7 @@
 import string
 import random
+import json
+import csv
 
 class Expense:
     def __init__(self, ID: str, category: str, amount: float, description: float, date: str):
@@ -22,7 +24,8 @@ class Expense:
         return self.date
     
     def to_str(self):
-        expense_str = f'{self.ID:5}|{self.category:5}|{self.amount:5.2f}|{self.description:20}|{self.date}'
+        expense_str = f'{self.ID:5}{self.category:5}{self.amount:5.2f}{self.description:20}{self.date}'
+        return expense_str
 
 class Budget:
     instance = None
@@ -36,7 +39,8 @@ class Budget:
     def __init__(self):
         self.expenses: dict[str : Expense] = {}
 
-    def add(self, expense: Expense):
+    def add(self, category : str, amount : float, description : str, date : str):
+        expense = Expense(category, amount, description, date)
         ID = Budget.generate_ID()
         self.expenses[ID] = expense
         expense.set_ID(ID)
@@ -48,6 +52,7 @@ class Budget:
 
     def list_expenses(self):
         print('Expenses:')
+        print(f'{'ID':5}{'category':5}{'amount':5}{'description':20}{'date'}')
         for expense in self.expenses.values():
             print(expense.to_str())
 
@@ -58,8 +63,45 @@ class Budget:
                 total += expense.get_amount()
         print('Total expenses for {category}: {total:.2f}')
 
-    def export(self):
-        pass
+    def to_dict(self):
+        data = {
+            ID: {
+                'category': expense.get_category(),
+                'amount': expense.get_amount(),
+                'description': expense.get_descript(),
+                'date': expense.get_date()
+            }
+            for ID, expense in self.expenses.items()
+        }
+        return data
+
+    def save(self, file_path):
+        data = self.to_dict()
+        with open(file_path, 'w') as file:
+            json.dump(data, file, indent = 4)
+
+    def load(self, file_path):
+        data = {}
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+        for ID, expense_data in data:
+            expense = Expense(
+                expense_data['category'],
+                expense_data['amount'],
+                expense_data['description'],
+                expense_data['date']
+            )
+            self.expenses[ID] = expense
+            expense.set_ID(ID)
+
+    def export_civ(self, csvfile_path):
+        # adjust and implement logic for filepath
+        data = self.to_dict()
+        with open(csvfile_path, 'w') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(['ID', 'category', 'amount', 'description', 'date'])
+            for ID, expense in data:
+                writer.writerow([ID, expense['category'], expense['amount'], expense['description'], expense['date']])
 
     def generate_ID():
         ID = ''
