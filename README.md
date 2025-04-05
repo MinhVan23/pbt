@@ -10,7 +10,7 @@ This is a small simple python project to study the basic of python including fil
 # Instruction
 
 - Setup
-    - use "setup.py install" to install pbt
+    - use "setup.py --install" to install pbt
 
 - pbt
     - add expenses (for format use help)
@@ -35,6 +35,6 @@ This is a small simple python project to study the basic of python including fil
 
 ## Todo
 
-- testing
+- additional features
 
 ## Notes
